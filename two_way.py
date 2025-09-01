@@ -1,7 +1,12 @@
 from flask import Flask, request
-from sms import send_two_way_sms  # import the function we defined earlier
+from sms import send_two_way_sms  
+from gemini_response import autogenerate_climate_response
 
 app = Flask(__name__)
+
+prompt="what is the current AQI value in Mombasa"
+# print(autogenerate_climate_response(prompt))
+
 
 
 @app.route('/twowaycallback', methods=['POST'])
@@ -15,8 +20,9 @@ def twoway_callback():
     date = data.get("date")
     sender = data.get("from")
 
+    ai_response = autogenerate_climate_response(prompt)
     x = {
-        "message": f'This is a response to: "{text}"',
+        "message": ai_response,
         "recipient": sender
     }
 

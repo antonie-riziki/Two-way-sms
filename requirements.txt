@@ -1,0 +1,4 @@
+africastalking
+python-dotenv
+google-generativeai
+flask
